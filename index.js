@@ -8,11 +8,13 @@ const clickFunction = () => {
   clearResultsAndErrors()
 
   const textBoxValue = textBox.value
-  const regexBoxValue = regexBox.value
+  const regexBoxValue = regexBox.value.trim()
   let regex = ''
 
+  console.log(regexBoxValue);
+
   if(textBoxValue.length === 0 || regexBoxValue.length === 0) {
-    return error('Please, fill in all fields.')
+    return err('Please, fill in all fields.')
   }
 
   regex = createRegex(regexBoxValue)
@@ -33,11 +35,9 @@ const clickFunction = () => {
 const clearResultsAndErrors = () => {
   alertBox.classList.add('hide')
   resultsBox.innerHTML = ''
-
-  alertBox.innerHTML = ''
 }
 
-const error = errorMessage => {
+const err = errorMessage => {
   alertBox.classList.remove('hide')
   alertBox.innerHTML = errorMessage
 }
@@ -56,8 +56,7 @@ const createRegex = regex => {
 
     return new RegExp(regex, 'g')
   } catch (error) {
-    error('The Regular Expression is invalid.')
-    return false
+    return err('The Regular Expression is invalid.')
   }
 }
 
